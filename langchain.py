@@ -1,4 +1,3 @@
-
 import os
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
@@ -8,17 +7,14 @@ from langchain.memory import ConversationSummaryBufferMemory
 
 load_dotenv()
 
-open_ai_key = os.environ.get('OPENAI_API_KEY')
+open_ai_key = os.environ.get("OPENAI_API_KEY")
 
 llm = OpenAI(api_key=open_ai_key)
 
 memory = ConversationBufferMemory()
 
 
-conversation = ConversationChain(
-    llm=llm,
-    memory=memory
-)
+conversation = ConversationChain(llm=llm, memory=memory)
 
 conversation.predict(input="Hello, my name is Ahmad")
 conversation.predict(input="What is my name?")
@@ -38,13 +34,10 @@ memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
 # Pre storing some context (not mandatory)
 memory.save_context({"input": "Hello"}, {"output": "What's up"})
 memory.save_context({"input": "Not much, just hanging"}, {"output": "Cool"})
-memory.save_context({"input": "What is on the schedule today?"}, {
-                    "output": f"{schedule}"})
-
-conversation = ConversationChain(
-    llm=llm,
-    memory=memory,
-    verbose=True
+memory.save_context(
+    {"input": "What is on the schedule today?"}, {"output": f"{schedule}"}
 )
+
+conversation = ConversationChain(llm=llm, memory=memory, verbose=True)
 
 conversation.predict(input="What would be a good time for coffee break?")
