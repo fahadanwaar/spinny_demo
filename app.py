@@ -6,8 +6,13 @@ from constants import SPINNY_INSTRUCTION
 
 app = Flask(__name__)
 # FILE_ID = 'file-gdPgVsLFaAN2yDQyAeKWw7b5'
-FILE_ID = 'file-DSZE2TK7wwggRjkH7Dn3o7li'  # File provided to assistant
-ASSISTANT_ID = 'asst_MkjOHJCh90zr9slPv7RxQkdI'
+# FILE_ID = 'file-DSZE2TK7wwggRjkH7Dn3o7li'  # File provided to assistant #old
+# ASSISTANT_ID = 'asst_MkjOHJCh90zr9slPv7RxQkdI' #old
+
+FILE_ID = 'file-1fLKeUnCjFyu7ATXcmxxnCmw'  # new
+ASSISTANT_ID = 'asst_gmrlgUwGJktMrG6lXtFIhfaK'  # new
+
+# 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
 
 
 @app.route('/')
@@ -15,7 +20,7 @@ def hello():
     return 'Hello, World!'
 
 
-client = OpenAI(api_key='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')
+client = OpenAI(api_key='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')
 # Fahad bhai's account
 # client = OpenAI(api_key='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')
 
@@ -87,7 +92,7 @@ def generate_response():
         thread_id=thread_id,
         role="user",
         content=message_body,
-        file_ids=[FILE_ID]
+        file_ids=[FILE_ID]  # we can override the assistant file here too
     )
 
     # Run the assistant and get the new message
@@ -102,6 +107,7 @@ def run_assistant(thread):
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
         assistant_id=ASSISTANT_ID,
+        instructions=SPINNY_INSTRUCTION
     )
 
     # Wait for completion
@@ -123,15 +129,7 @@ uploaded_file = upload_file('teach_spinny.pdf')
 # FILE_ID = uploaded_file.id
 
 my_assistant = create_assistant(assistant_name, inst, uploaded_file)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-# assistant = client.beta.assistants.retrieve(
-#     "asst_MkjOHJCh90zr9slPv7RxQkdI")
-
-# message = client.beta.threads.messages.create(
-#     thread_id=thread_2.id,
-#     role="user",
-#     content="What makes Spinnr stand out from other friendship, event, or community apps?",
-#     file_ids=[FILE_ID]
-# )
