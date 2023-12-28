@@ -1,0 +1,7 @@
+.env
+.env.prod   
+__pycache__/
+temp/*
+*.rdb
+spnny_demo_env/
+.spnny_demo_env
