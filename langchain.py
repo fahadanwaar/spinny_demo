@@ -1,9 +1,16 @@
-# OpenAI key from environment
+
+import os
+from dotenv import load_dotenv
+from langchain.llms import OpenAI
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 from langchain.memory import ConversationSummaryBufferMemory
-from langchain.llms import OpenAI
-llm = OpenAI(api_key='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')
+
+load_dotenv()
+
+open_ai_key = os.environ.get('OPENAI_API_KEY')
+
+llm = OpenAI(api_key=open_ai_key)
 
 memory = ConversationBufferMemory()
 
