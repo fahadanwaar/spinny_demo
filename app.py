@@ -1,9 +1,12 @@
 import time
 import os
 import shelve
-from flask import Flask, request
 from openai import OpenAI
+from dotenv import load_dotenv
+from flask import Flask, request
 from constants import SPINNY_INSTRUCTION
+
+load_dotenv()
 
 app = Flask(__name__)
 
